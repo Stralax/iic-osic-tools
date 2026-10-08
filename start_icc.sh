@@ -15,8 +15,8 @@
 # ========================================================================
 
 # Download command:
-# curl -fsSL https://gist.githubusercontent.com/Stralax/dae4c721703c099b0443f88f4967f0bd/raw/start_icc.sh -o start_icc.sh
-# curl -fsSL https://tinyurl.com/start-icc-sh -o start_icc.sh
+# curl -fsSLO https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_icc.sh -o start_icc.sh
+# curl -fsSL https://tinyurl.com/icc-start-sh -o start_icc.sh
 
 # ----------------------- SETTINGS (default values) -----------------------
 IMAGE="${IMAGE:-stralax/iic-osic-tools:latest}"

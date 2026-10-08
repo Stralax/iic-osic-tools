@@ -20,8 +20,8 @@
 :: Dry run (prints the commands instead of executing them):
 ::   set DRY_RUN=1 && start_icc.bat
 
-:: curl -fsSL https://gist.githubusercontent.com/Stralax/5e5b630439c8f8fc5bb7db6220c537be/raw/start_icc.bat -o start_icc.bat
-:: curl -fsSL https://tinyurl.com/start-icc-bat -o start_icc.bat
+:: curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_icc.bat -o start_icc.bat
+:: curl -fsSL https://tinyurl.com/icc-start-bat -o start_icc.bat
 
 SETLOCAL
 
