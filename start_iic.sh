@@ -1,6 +1,6 @@
 #!/bin/bash
 # ========================================================================
-# start_icc.sh - simplified script to start, stop and remove the
+# start_iic.sh - simplified script to start, stop and remove the
 #          iic-osic-tools container (updates the image on start)
 #
 # This script is modeled after the original start_vnc.sh script from the
@@ -15,11 +15,11 @@
 # ========================================================================
 
 # Download command:
-# curl -fsSLO https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_icc.sh -o start_icc.sh
-# curl -fsSL https://tinyurl.com/icc-start-sh -o start_icc.sh
+# curl -fsSLO https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_iic.sh -o start_iic.sh
+# curl -fsSL https://tinyurl.com/iic-start-sh -o start_iic.sh
 
 # ----------------------- SETTINGS (default values) -----------------------
-IMAGE="${IMAGE:-stralax/iic-osic-tools:latest}"
+IMAGE="${IMAGE:-lrme/iic-osic-tools:latest}"
 NAME="${NAME:-iic-osic-tools_xvnc_uid_$(id -u)}"
 DESIGNS="${DESIGNS:-$HOME/eda/designs}"
 WEB_PORT="${WEB_PORT:-80}"

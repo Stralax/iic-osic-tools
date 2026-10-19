@@ -1,7 +1,7 @@
 @echo off
 
 :: ========================================================================
-:: start_icc.bat - simplified script to start, stop and remove the
+:: start_iic.bat - simplified script to start, stop and remove the
 ::          iic-osic-tools container (updates the image on start)
 ::
 :: This script is modeled after the original start_vnc.bat script from the
@@ -16,17 +16,17 @@
 :: ========================================================================
 
 :: Example of overriding a setting (cmd):
-::   set WEB_PORT=8080 && start_icc.bat
+::   set WEB_PORT=8080 && start_iic.bat
 :: Dry run (prints the commands instead of executing them):
-::   set DRY_RUN=1 && start_icc.bat
+::   set DRY_RUN=1 && start_iic.bat
 
-:: curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_icc.bat -o start_icc.bat
-:: curl -fsSL https://tinyurl.com/icc-start-bat -o start_icc.bat
+:: curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_iic.bat -o start_iic.bat
+:: curl -fsSL https://tinyurl.com/iic-start-bat -o start_iic.bat
 
 SETLOCAL
 
 :: ----------------------- SETTINGS (default values) -----------------------
-IF NOT DEFINED IMAGE set "IMAGE=stralax/iic-osic-tools:latest"
+IF NOT DEFINED IMAGE set "IMAGE=lrme/iic-osic-tools:latest"
 IF NOT DEFINED NAME set "NAME=iic-osic-tools_xvnc"
 IF NOT DEFINED DESIGNS set "DESIGNS=%USERPROFILE%\eda\designs"
 IF NOT DEFINED WEB_PORT set "WEB_PORT=80"
