@@ -15,7 +15,7 @@
 # ========================================================================
 
 # Download command:
-# curl -fsSLO https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_iic.sh -o start_iic.sh
+# curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_iic.sh -o start_iic.sh
 # curl -fsSL https://tinyurl.com/iic-start-sh -o start_iic.sh
 
 # ----------------------- SETTINGS (default values) -----------------------
