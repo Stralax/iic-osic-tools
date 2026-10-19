@@ -13,8 +13,8 @@ Docker Hub image: `stralax/iic-osic-tools`
 | File | Purpose |
 |---|---|
 | `Dockerfile` | Builds the extended image on top of `hpretl/iic-osic-tools:latest`. |
-| `start_icc.sh` | Start/stop/remove script for Linux, macOS and Windows (WSL / Git Bash). |
-| `start_icc.bat` | The same script for Windows `cmd` (Docker Desktop, no WSL needed). |
+| `start_iic.sh` | Start/stop/remove script for Linux, macOS and Windows (WSL / Git Bash). |
+| `start_iic.bat` | The same script for Windows `cmd` (Docker Desktop, no WSL needed). |
 
 ---
 
@@ -45,15 +45,15 @@ The default user is `1000:1000`, same as upstream. Everything else from the upst
 ### Linux / macOS
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_icc.sh -o start_icc.bat
-chmod +x start_icc.sh
-./start_icc.sh
+curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_iic.sh -o start_iic.bat
+chmod +x start_iic.sh
+./start_iic.sh
 ```
 
 ### Windows (cmd or PowerShell)
 
 ```bat
-curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_icc.bat -o start_icc.bat
+curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_iic.bat -o start_iic.bat
 ```
 
 Use `curl.exe` (not `curl`) so it also works in PowerShell. Start Docker Desktop first.
@@ -74,7 +74,7 @@ The first start downloads the image, which takes a while. The compressed downloa
 
 ## How the start script works
 
-Run `./start_icc.sh` and it looks at the current state of the container:
+Run `./start_iic.sh` and it looks at the current state of the container:
 
 | Container state | What you are asked |
 |---|---|
@@ -107,15 +107,15 @@ Every setting has a default in the script and can be overridden from the termina
 Linux / macOS:
 
 ```bash
-XKB_KEYBOARD_LAYOUT=us WEB_PORT=8080 ./start_icc.sh
-DRY_RUN=1 ./start_icc.sh
+XKB_KEYBOARD_LAYOUT=us WEB_PORT=8080 ./start_iic.sh
+DRY_RUN=1 ./start_iic.sh
 ```
 
 Windows (cmd):
 
 ```bat
-set WEB_PORT=8080 && start_icc.bat
-set DRY_RUN=1 && start_icc.bat
+set WEB_PORT=8080 && start_iic.bat
+set DRY_RUN=1 && start_iic.bat
 ```
 
 > **Note:** settings are applied when the container is *created*. To apply new settings to an existing container, press `r` to remove it and run the script again.
@@ -153,8 +153,8 @@ The package also ships examples and documentation in `/usr/lib/spiceopus/documen
 | Linux (Docker) | Yes | User must be in the `docker` group. |
 | macOS Intel | Yes | Docker Desktop. |
 | macOS Apple Silicon | Yes | Otherwise it runs under emulation or fails. |
-| Windows, `start_icc.bat` | Yes | Docker Desktop. The file must have CRLF line endings. |
-| Windows, `start_icc.sh` | Yes | Inside WSL or Git Bash. |
+| Windows, `start_iic.bat` | Yes | Docker Desktop. The file must have CRLF line endings. |
+| Windows, `start_iic.sh` | Yes | Inside WSL or Git Bash. |
 
 ---
 
