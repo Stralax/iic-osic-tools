@@ -1,4 +1,4 @@
-# iic-osic-tools + SPICE OPUS (unofficial build)
+# Custom IIC-OSIC-TOOLS
 
 An extended build of [`hpretl/iic-osic-tools`](https://hub.docker.com/r/hpretl/iic-osic-tools), the all-in-one open-source IC design environment from the Institute for Integrated Circuits, Johannes Kepler University Linz. This image adds **SPICE OPUS**, **Open MPI** and **mpi4py** on top of the upstream image, and comes with simple start scripts for Linux, macOS and Windows.
 
