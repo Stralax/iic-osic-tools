@@ -2,7 +2,7 @@
 
 An extended build of [`hpretl/iic-osic-tools`](https://hub.docker.com/r/hpretl/iic-osic-tools), the all-in-one open-source IC design environment from the Institute for Integrated Circuits, Johannes Kepler University Linz. This image adds **SPICE OPUS**, **Open MPI** and **mpi4py** on top of the upstream image, and comes with simple start scripts for Linux, macOS and Windows.
 
-Docker Hub image: `stralax/iic-osic-tools`
+Docker Hub image: `lrme/iic-osic-tools`
 
 > This project is not affiliated with or endorsed by JKU/IIC or the SPICE OPUS authors.
 
@@ -12,7 +12,6 @@ Docker Hub image: `stralax/iic-osic-tools`
 
 | File | Purpose |
 |---|---|
-| `Dockerfile` | Builds the extended image on top of `hpretl/iic-osic-tools:latest`. |
 | `start_iic.sh` | Start/stop/remove script for Linux, macOS and Windows (WSL / Git Bash). |
 | `start_iic.bat` | The same script for Windows `cmd` (Docker Desktop, no WSL needed). |
 
@@ -22,7 +21,7 @@ Docker Hub image: `stralax/iic-osic-tools`
 
 | Component | Details |
 |---|---|
-| **SPICE OPUS** | Version 3.0 r407 (build 2023.08.23), installed from the official `.deb` package for amd64 and arm64. Binary: `spiceopus`, files in `/usr/lib/spiceopus`. |
+| **SPICE OPUS** | Version 3.0 r407 (build 2023.08.23), installed from the official `.deb` package for amd64. Binary: `spiceopus`, files in `/usr/lib/spiceopus`. |
 | **Open MPI** | `libopenmpi-dev` |
 | **Python headers** | `python3-dev` |
 | **mpi4py** | Installed with pip, system-wide |
@@ -177,5 +176,3 @@ The package also ships examples and documentation in `/usr/lib/spiceopus/documen
 - The start scripts are modeled after `start_vnc.sh` / `start_vnc.bat` from the [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) project by Harald Pretl and Georg Zachl (Johannes Kepler University), published under the **Apache License 2.0**. They have been modified and simplified.
 - **SPICE OPUS** is developed at the Faculty of Electrical Engineering, University of Ljubljana. See <https://fides.fe.uni-lj.si/spice/> for documentation and its license terms.
 - The upstream tools in the image keep their own licenses.
-
-Before making the Docker Hub repository public, check that the SPICE OPUS license allows redistribution.
