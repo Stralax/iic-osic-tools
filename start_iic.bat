@@ -160,4 +160,54 @@ exit /b 0
 :: Returns 0 if the pull worked, 1 if it failed (e.g. no internet).
 :pull_image
 echo [INFO] Checking for a newer version of %IMAGE% ...
-%ECHO_IF_DRY_RUN% docker
+%ECHO_IF_DRY_RUN% docker pull -q "%IMAGE%" > %OUT%
+IF ERRORLEVEL 1 (
+    echo [WARNING] Could not check for updates ^(offline?^), using the local image.
+    exit /b 1
+)
+exit /b 0
+
+:: Starts the existing (stopped) container. If a newer image was pulled, the
+:: user is asked for confirmation ("u") before the old container is removed
+:: and re-created from the new image. "n" starts the old container.
+:start_existing
+call :pull_image
+IF ERRORLEVEL 1 goto :start_existing_run
+IF DEFINED DRY_RUN goto :start_existing_run
+
+set "IMG_ID="
+set "CTR_IMG="
+for /f "delims=" %%i in ('docker image inspect -f "{{.Id}}" "%IMAGE%" 2^>nul') do set "IMG_ID=%%i"
+for /f "delims=" %%i in ('docker inspect -f "{{.Image}}" "%NAME%" 2^>nul') do set "CTR_IMG=%%i"
+
+IF NOT DEFINED IMG_ID goto :start_existing_run
+IF NOT DEFINED CTR_IMG goto :start_existing_run
+IF "%IMG_ID%"=="%CTR_IMG%" (
+    echo [INFO] Image is up to date.
+    goto :start_existing_run
+)
+
+echo [INFO] A newer image of %IMAGE% is available.
+echo [WARNING] Updating removes the old container %NAME% and creates a new one.
+echo [WARNING] Files stored outside of %DESIGNS% - mounted to /foss/designs - will be lost!
+echo.
+choice /c un /n /m "Press u to update (re-create the container), n to start the old one: "
+IF ERRORLEVEL 2 (
+    echo [INFO] Update skipped, starting the old container.
+    goto :start_existing_run
+)
+echo [INFO] Updating, re-creating the container ...
+docker rm "%NAME%" > %OUT%
+call :create
+exit /b %ERRORLEVEL%
+
+:start_existing_run
+%ECHO_IF_DRY_RUN% docker start "%NAME%"
+IF ERRORLEVEL 1 (
+    echo [ERROR] Could not start the container %NAME%.
+    exit /b 1
+)
+call :check_container_alive 3
+IF ERRORLEVEL 1 exit /b 1
+call :info
+exit /b 0

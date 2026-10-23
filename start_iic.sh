@@ -123,20 +123,33 @@ pull_image() {
     fi
     return 0
 }
+
 # Starts the existing (stopped) container. If a newer image was pulled, the
-# old container is removed and re-created from the new image instead.
+# user is asked for confirmation ("u") before the old container is removed
+# and re-created from the new image. Any other key starts the old container.
 start_existing() {
     if pull_image && [ -z "${DRY_RUN}" ]; then
-        local img_id ctr_img
+        local img_id ctr_img k
         img_id=$(docker image inspect -f '{{.Id}}' "$IMAGE" 2>/dev/null)
         ctr_img=$(docker inspect -f '{{.Image}}' "$NAME" 2>/dev/null)
         if [ -n "$img_id" ] && [ -n "$ctr_img" ] && [ "$img_id" != "$ctr_img" ]; then
-            echo "[INFO] Newer image found, re-creating the container ..."
-            docker rm "$NAME" > "$OUT"
-            create
-            return
+            echo "[INFO] A newer image of ${IMAGE} is available."
+            echo "[WARNING] Updating removes the old container ${NAME} and creates a new one."
+            echo "[WARNING] Files stored outside of ${DESIGNS} (mounted to /foss/designs) will be lost!"
+            echo
+            echo -n "Press \"u\" to update (re-create the container), any other key to start the old one: "
+            read -r -n 1 k </dev/tty
+            echo
+            if [[ $k = u ]]; then
+                echo "[INFO] Updating, re-creating the container ..."
+                docker rm "$NAME" > "$OUT"
+                create
+                return
+            fi
+            echo "[INFO] Update skipped, starting the old container."
+        else
+            echo "[INFO] Image is up to date."
         fi
-        echo "[INFO] Image is up to date."
     fi
     # docker start prints the container name, so its output is not hidden.
     if ! ${ECHO_IF_DRY_RUN} docker start "$NAME"; then
