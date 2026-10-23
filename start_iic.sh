@@ -143,6 +143,7 @@ start_existing() {
             if [[ $k = u ]]; then
                 echo "[INFO] Updating, re-creating the container ..."
                 docker rm "$NAME" > "$OUT"
+                docker rmi "$ctr_img" > "$OUT" 2>&1 || true
                 create
                 return
             fi

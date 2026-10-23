@@ -198,6 +198,7 @@ IF ERRORLEVEL 2 (
 )
 echo [INFO] Updating, re-creating the container ...
 docker rm "%NAME%" > %OUT%
+docker rmi "%CTR_IMG%" >nul 2>&1
 call :create
 exit /b %ERRORLEVEL%
 
