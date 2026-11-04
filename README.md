@@ -21,10 +21,11 @@ Docker Hub image: `lrme/iic-osic-tools`
 
 | Component | Details |
 |---|---|
-| **SPICE OPUS** | Version 3.0 r407 (build 2023.08.23), installed from the official `.deb` package for amd64. Binary: `spiceopus`, files in `/usr/lib/spiceopus`. |
+| **SPICE OPUS** | Version 3.0 r407 (build 2023.08.23), installed from the official `.deb` package for amd64. |
 | **Open MPI** | `libopenmpi-dev` |
 | **Python headers** | `python3-dev` |
 | **mpi4py** | Installed with pip, system-wide |
+| **Visual Studio Code** |  Installed from the official Microsoft package |
 
 Environment variables set in the image:
 
@@ -33,13 +34,9 @@ Environment variables set in the image:
 
 The default user is `1000:1000`, same as upstream. Everything else from the upstream image is unchanged.
 
-<!-- If you added Visual Studio Code to the Dockerfile, add a row for it above. Otherwise delete this comment. -->
-
----
-
 ## Quick start
 
-**Requirements:** Docker (Docker Desktop on Windows and macOS, Docker Engine on Linux). On Linux your user must be in the `docker` group, otherwise the commands need `sudo`.
+**Requirements:** Docker (Docker Desktop on Windows and macOS, Docker Engine on Linux). On Linux your user must be in the `docker` group.
 
 ### Linux / macOS
 
@@ -49,6 +46,9 @@ chmod +x start_iic.sh
 ./start_iic.sh
 ```
 
+Alternatively, download the script from the
+[releases page](https://github.com/Stralax/iic-osic-tools/releases/download/v1.0/start_iic.sh).
+
 ### Windows (cmd or PowerShell)
 
 ```bat
@@ -56,6 +56,9 @@ curl -fsSL https://raw.githubusercontent.com/Stralax/iic-osic-tools/main/start_i
 ```
 
 Use `curl.exe` (not `curl`) so it also works in PowerShell. Start Docker Desktop first.
+
+Alternatively, download the script from the
+[releases page](https://github.com/Stralax/iic-osic-tools/releases/download/v1.0/start_iic.bat).
 
 ### Open the desktop
 
@@ -77,7 +80,8 @@ Run `./start_iic.sh` and it looks at the current state of the container:
 
 | Container state | What you are asked |
 |---|---|
-| **Does not exist** | Nothing. It checks for a newer image, creates the container and starts it. |
+| **Does not exist** | Nothing. The script checks for a newer image, creates the container and starts it. |
+| **New version is available** | Press `u` to update, or any other key to stay on the old version. |
 | **Stopped** | `s` = start, `r` = remove |
 | **Running** | `s` = stop, `r` = stop and remove |
 
@@ -86,7 +90,6 @@ Things it does for you:
 - **Update check on start.** When you press `s` on a stopped container, the script pulls the image first. If the container was created from an older image, it is removed and re-created from the newer one. If you are offline, it warns you and uses the local image.
 - **Startup check.** After starting, it watches the container for a few seconds and prints the last log lines if it crashes, instead of silently printing a URL for a dead container.
 - **Dry run.** Prints the commands instead of executing them.
-- **Host-specific fixes.** Adds the SELinux label option on SELinux hosts and the OpenSSL workaround on Apple Silicon.
 
 ### Changing settings
 
@@ -94,7 +97,7 @@ Every setting has a default in the script and can be overridden from the termina
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `IMAGE` | `stralax/iic-osic-tools:latest` | Image to run |
+| `IMAGE` | `lrme/iic-osic-tools:latest` | Image to run |
 | `NAME` | `iic-osic-tools_xvnc_uid_<uid>` | Container name |
 | `DESIGNS` | `~/eda/designs` | Designs folder on the host |
 | `WEB_PORT` | `80` | Browser (noVNC) port |
@@ -140,20 +143,6 @@ C1 out 0 1u
 ```
 
 In the SPICE OPUS console: `source rc.cir`, then `op`, then `print v(out)`. The expected value is 5 V.
-
-The package also ships examples and documentation in `/usr/lib/spiceopus/documentation` (for example `getstarted.html` and `amplifier.cir`).
-
----
-
-## Platform support
-
-| System | Works | Notes |
-|---|---|---|
-| Linux (Docker) | Yes | User must be in the `docker` group. |
-| macOS Intel | Yes | Docker Desktop. |
-| macOS Apple Silicon | Yes | Otherwise it runs under emulation or fails. |
-| Windows, `start_iic.bat` | Yes | Docker Desktop. The file must have CRLF line endings. |
-| Windows, `start_iic.sh` | Yes | Inside WSL or Git Bash. |
 
 ---
 
