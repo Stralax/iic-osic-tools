@@ -22,8 +22,8 @@ Docker Hub image: `lrme/iic-osic-tools`
 | Component | Details |
 |---|---|
 | **SPICE OPUS** | Version 3.0 r407 (build 2023.08.23), installed from the official `.deb` package for amd64. |
+| **PyOPUS GUI** | PyOPUS GUI based on PySide6, with support for parallel execution. |
 | **Open MPI** | `libopenmpi-dev` |
-| **Python headers** | `python3-dev` |
 | **mpi4py** | Installed with pip, system-wide |
 | **Visual Studio Code** |  Installed from the official Microsoft package |
 
