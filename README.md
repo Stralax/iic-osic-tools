@@ -4,7 +4,7 @@ An extended build of [`hpretl/iic-osic-tools`](https://hub.docker.com/r/hpretl/i
 
 Docker Hub image: `lrme/iic-osic-tools`
 
-> This project is not affiliated with or endorsed by JKU/IIC or the SPICE OPUS authors.
+> This project is not affiliated with or endorsed by JKU/IIC.
 
 ---
 
