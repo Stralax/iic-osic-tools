@@ -65,7 +65,7 @@ Alternatively, download the script from the
 After startup, open the printed URL in your browser (defaults):
 
 ```
-http://localhost:80/?password=abc123
+http://localhost/vnc.html?password=abc123
 ```
 
 Your designs are stored on the host in `~/eda/designs` (`%USERPROFILE%\eda\designs` on Windows) and mounted into the container at `/foss/designs`.
